@@ -10,7 +10,7 @@ services:
       context: .
       dockerfile: Dockerfile.app
     volumes:
-      - ./data:/data
+      - /home/dporto/devel:/data
   caddy:
     build:
       context: .
@@ -21,7 +21,7 @@ services:
       # aaa : JDJhJDEwJEVKM0FhUTJvdkdIb2VZdkE0WVhMWS5WMFlkSW5TZTAuL0R4Z3NYdGx1NmgxdmVVVUhUMUhh
       - APP_PASSWORD_HASH=JDJhJDEwJEVKM0FhUTJvdkdIb2VZdkE0WVhMWS5WMFlkSW5TZTAuL0R4Z3NYdGx1NmgxdmVVVUhUMUhh
     volumes:
-      - ./data:/data
+      - /home/dporto/devel:/data
     ports:
       - 8080:8080
 

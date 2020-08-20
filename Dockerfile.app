@@ -30,8 +30,12 @@ COPY menu.xml /etc/xdg/openbox/
 COPY supervisord.conf /etc/
 EXPOSE 8080
 
-RUN groupadd --gid 1000 app && \
-    useradd --home-dir /data --shell /bin/bash --uid 1000 --gid 1000 app && \
+ARG UID=1097
+ARG GID=1104
+
+
+RUN groupadd --gid $GID app && \
+    useradd --home-dir /data --shell /bin/bash --uid $UID --gid $GID app && \
     mkdir -p /data
 VOLUME /data
 

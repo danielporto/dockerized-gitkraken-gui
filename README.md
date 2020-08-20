@@ -3,7 +3,8 @@ An example of how to embed a graphic  application into a docker container and ac
 
 This is useful to run gui applications that scan the disk and performs poorly when run over remote drives.
 
-To run, simply clone this repository and execute docker-compose up
+To run, simply clone this repository and execute 
+docker-compose up
 access gitkraken via web browser: machine:8080  (http://localhost:8080)
 
  the directory data is mounted into the containers.
@@ -11,3 +12,6 @@ access gitkraken via web browser: machine:8080  (http://localhost:8080)
 
  To change application, review the Dockerfile.app, superfisord.conf and menu.xml and change it accordingly.
  
+
+ Known issues:
+ Change the UID and GID in both dockerfiles to match ours otherwise you wont be able to write on the volume
