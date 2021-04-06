@@ -17,7 +17,7 @@ RUN apt-get update -y && \
 
 # customize which gui application to run
 RUN apt-get update -y && \
-    apt-get install -y --no-install-recommends wget && \
+    apt-get install -y --no-install-recommends wget keepassxc firefox-esr && \
     wget https://release.gitkraken.com/linux/gitkraken-amd64.deb  -P /tmp && \
     apt remove -y wget && \
     apt install -y gconf2 gconf-service libgtk2.0-0 libnotify4 libnss3 gvfs-bin xdg-utils libxss1 libasound2 procps libgbm-dev && \
