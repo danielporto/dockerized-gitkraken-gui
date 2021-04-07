@@ -15,3 +15,6 @@ access gitkraken via web browser: machine:8080  (http://localhost:8080)
 
  Known issues:
  Change the UID and GID in both dockerfiles to match ours otherwise you wont be able to write on the volume
+
+
+ CHANGE SAMBA PASSWORD

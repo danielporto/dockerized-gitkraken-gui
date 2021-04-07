@@ -6,6 +6,11 @@
                 <execute>/usr/bin/gitkraken</execute>
             </action>
         </item>
+        <item label="VS Code">
+            <action name="Execute">
+                <execute>/usr/bin/code</execute>
+            </action>
+        </item>
         <item label="Terminal">
             <action name="Execute">
                 <execute>/usr/bin/x-terminal-emulator</execute>

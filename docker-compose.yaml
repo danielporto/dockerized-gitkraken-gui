@@ -11,6 +11,18 @@ services:
       dockerfile: Dockerfile.app
     volumes:
       - /home/dporto/devel:/data
+  samba:
+    image: dperson/samba
+    environment:
+      - USERID=1097
+      - GROUPID=1145
+    ports:
+      - 139:139
+      - 445:445
+    # https://hub.docker.com/r/dperson/samba
+    command:  -u "dporto;PASSWD;" -s "devel;/data;yes;no;no;dporto"
+    volumes:
+            - /home/dporto/devel:/data
   caddy:
     build:
       context: .

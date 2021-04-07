@@ -21,7 +21,7 @@ COPY Caddyfile /etc/
 EXPOSE 8080
 
 ARG UID=1097
-ARG GID=1104
+ARG GID=1145
 
 RUN groupadd --gid $GID app && \
     useradd --home-dir /data --shell /bin/bash --uid $UID --gid $GID app && \
