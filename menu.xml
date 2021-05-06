@@ -16,6 +16,11 @@
                 <execute>/usr/bin/x-terminal-emulator</execute>
             </action>
         </item>
+        <item label="Goland">
+            <action name="Execute">
+                <execute>/opt/GoLand/bin/goland.sh</execute>
+            </action>
+        </item>
         <item label="KeepassXC">
             <action name="Execute">
                 <execute>/usr/bin/keepassxc</execute>
@@ -29,6 +34,11 @@
         <item label="Htop">
             <action name="Execute">
                 <execute>/usr/bin/x-terminal-emulator -e htop</execute>
+            </action>
+        </item>
+        <item label="Taskbar">
+            <action name="Execute">
+                <execute>/usr/bin/tint2</execute>
             </action>
         </item>
     </menu>

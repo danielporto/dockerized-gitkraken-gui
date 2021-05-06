@@ -7,12 +7,12 @@ RUN go mod init build && \
 FROM debian:buster
 
 RUN apt-get update -y && \
-    apt-get install -y --no-install-recommends openbox tigervnc-standalone-server supervisor gosu && \
+    apt-get install -y --no-install-recommends openbox tigervnc-standalone-server supervisor gosu tint2 && \
     rm -rf /var/lib/apt/lists && \
     mkdir -p /usr/share/desktop-directories
 
 RUN apt-get update -y && \
-    apt-get install -y --no-install-recommends lxterminal nano wget openssh-client rsync ca-certificates xdg-utils htop tar xzip gzip bzip2 zip unzip && \
+    apt-get install -y --no-install-recommends lxterminal zsh git nano vim curl wget openssh-client rsync ca-certificates xdg-utils htop tar xzip gzip bzip2 zip unzip && \
     rm -rf /var/lib/apt/lists
 
 # customize which gui application to run
@@ -39,6 +39,16 @@ RUN wget -qO- https://packages.microsoft.com/keys/microsoft.asc | gpg --dearmor 
     && apt install code \
     && rm -rf /var/lib/apt/lists
 
+# install goland (Jetbrains Golang IDE)
+ENV GOLAND_VERSION=2021.1.1
+RUN wget https://download-cf.jetbrains.com/go/goland-${GOLAND_VERSION}.tar.gz \
+    && tar xvf goland-${GOLAND_VERSION}.tar.gz -C /opt \
+    && rm -f goland-${GOLAND_VERSION}.tar.gz \
+    && mv /opt/GoLand-${GOLAND_VERSION} /opt/GoLand \ 
+    && chmod -R o+rw /opt/GoLand* \
+    && echo "Goland installed"
+
+# configure vnc and supervisord
 COPY --from=easy-novnc-build /bin/easy-novnc /usr/local/bin/
 COPY menu.xml /etc/xdg/openbox/
 COPY supervisord.conf /etc/
@@ -50,7 +60,34 @@ ARG GID=1145
 
 RUN groupadd --gid $GID app && \
     useradd --home-dir /data --shell /bin/bash --uid $UID --gid $GID app && \
-    mkdir -p /data
+    mkdir -p /data && \  
+    chown -R app /data 
 VOLUME /data
+
+
+# install asdf
+RUN git clone https://github.com/asdf-vm/asdf.git /opt/asdf --branch v0.8.0 \
+    && chmod -R o+rw /opt/asdf \
+    && echo "ASDF installed"
+
+# customize user environment
+USER app 
+# install zsh
+RUN curl https://raw.githubusercontent.com/danielporto/zsh-dotfiles/master/zimrc -o ~/.zimrc \
+    && curl -fsSL https://raw.githubusercontent.com/zimfw/install/master/install.zsh | zsh \
+    && curl https://raw.githubusercontent.com/danielporto/zsh-dotfiles/master/gitconfig -o ~/.gitconfig  \
+    && echo "Zimfw installed"
+    
+
+RUN ls -la /data
+# install GOLANG 1.14.13 or 1.16 
+ENV GO_INSTALL_VERSION=1.14.13 
+ENV PATH="/opt/asdf/bin:/opt/asdf/shims:$PATH"
+RUN asdf plugin-add golang https://github.com/kennyp/asdf-golang.git && \
+    asdf install golang $GO_INSTALL_VERSION && \
+    asdf global golang $GO_INSTALL_VERSION && \
+    echo "Golang installed"
+
+USER root
 
 CMD ["sh", "-c", "chown app:app /data /dev/stdout && exec gosu app supervisord"]
