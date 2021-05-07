@@ -75,8 +75,9 @@ USER app
 # install zsh
 RUN curl https://raw.githubusercontent.com/danielporto/zsh-dotfiles/master/zimrc -o ~/.zimrc \
     && curl -fsSL https://raw.githubusercontent.com/zimfw/install/master/install.zsh | zsh \
+    && curl https://raw.githubusercontent.com/danielporto/zsh-dotfiles/master/zshrc -o ~/.zshrc \
     && curl https://raw.githubusercontent.com/danielporto/zsh-dotfiles/master/gitconfig -o ~/.gitconfig  \
-    && echo "Zimfw installed"
+    && echo "ZSH configured, Zimfw installed"
     
 
 RUN ls -la /data
