@@ -11,6 +11,7 @@ services:
       dockerfile: Dockerfile.app
     volumes:
       - /home/dporto/devel:/data
+      - /var/run/docker.sock:/var/run/docker.sock
   samba:
     image: dperson/samba
     environment:

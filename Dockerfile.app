@@ -15,6 +15,20 @@ RUN apt-get update -y && \
     apt-get install -y --no-install-recommends lxterminal zsh git nano vim curl wget openssh-client rsync ca-certificates xdg-utils htop tar xzip gzip bzip2 zip unzip && \
     rm -rf /var/lib/apt/lists
 
+# for docker in docker
+ARG DOCKERGID=998
+RUN apt update -y && \
+    apt install -y apt-transport-https ca-certificates curl gnupg2 software-properties-common && \
+    curl -fsSL https://download.docker.com/linux/debian/gpg | apt-key add - && \
+    add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/debian $(lsb_release -cs) stable" && \
+    apt update -y && \
+    groupadd --gid $DOCKERGID docker &&\  
+    apt install -y  docker-ce && \
+    # docker compose
+    curl -L "https://github.com/docker/compose/releases/download/1.29.1/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose && \
+    chmod +x /usr/local/bin/docker-compose && \
+    echo "Docker installed"
+
 # customize which gui application to run
 RUN apt-get update -y && \
     apt-get install -y --no-install-recommends wget keepassxc firefox-esr && \
@@ -71,6 +85,8 @@ RUN git clone https://github.com/asdf-vm/asdf.git /opt/asdf --branch v0.8.0 \
     && echo "ASDF installed"
 
 # customize user environment
+# allow user to run docker commands
+RUN usermod -aG docker app
 USER app 
 # install zsh
 RUN curl https://raw.githubusercontent.com/danielporto/zsh-dotfiles/master/zimrc -o ~/.zimrc \
@@ -90,5 +106,6 @@ RUN asdf plugin-add golang https://github.com/kennyp/asdf-golang.git && \
     echo "Golang installed"
 
 USER root
+
 
 CMD ["sh", "-c", "chown app:app /data /dev/stdout && exec gosu app supervisord"]
