@@ -21,6 +21,11 @@
                 <execute>/opt/GoLand/bin/goland.sh</execute>
             </action>
         </item>
+        <item label="Intellij idea">
+            <action name="Execute">
+                <execute>/opt/ideaIU/bin/idea.sh</execute>
+            </action>
+        </item>
         <item label="KeepassXC">
             <action name="Execute">
                 <execute>/usr/bin/keepassxc</execute>

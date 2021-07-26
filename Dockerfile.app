@@ -54,13 +54,22 @@ RUN wget -qO- https://packages.microsoft.com/keys/microsoft.asc | gpg --dearmor 
     && rm -rf /var/lib/apt/lists
 
 # install goland (Jetbrains Golang IDE)
-ENV GOLAND_VERSION=2021.1.1
-RUN wget https://download-cf.jetbrains.com/go/goland-${GOLAND_VERSION}.tar.gz \
+ENV GOLAND_VERSION=2021.1.3
+RUN wget https://download-cdn.jetbrains.com/go/goland-${GOLAND_VERSION}.tar.gz \
     && tar xvf goland-${GOLAND_VERSION}.tar.gz -C /opt \
     && rm -f goland-${GOLAND_VERSION}.tar.gz \
     && mv /opt/GoLand-${GOLAND_VERSION} /opt/GoLand \ 
     && chmod -R o+rw /opt/GoLand* \
     && echo "Goland installed"
+
+ENV IDEA_VERSION=2021.1.3
+RUN wget https://download-cdn.jetbrains.com/idea/ideaIU-${IDEA_VERSION}.tar.gz \
+    && tar xvf ideaIU-${IDEA_VERSION}.tar.gz -C /opt \
+    # && ls /opt \
+    && rm -f ideaIU-${IDEA_VERSION}.tar.gz \
+    && mv /opt/idea-IU-211.7628.21 /opt/ideaIU \ 
+    && chmod -R o+rw /opt/ideaIU \
+    && echo "Intellij installed"
 
 # configure vnc and supervisord
 COPY --from=easy-novnc-build /bin/easy-novnc /usr/local/bin/
@@ -80,7 +89,7 @@ VOLUME /data
 
 
 # install asdf
-RUN git clone https://github.com/asdf-vm/asdf.git /opt/asdf --branch v0.8.0 \
+RUN git clone https://github.com/asdf-vm/asdf.git /opt/asdf --branch v0.8.1 \
     && chmod -R o+rw /opt/asdf \
     && echo "ASDF installed"
 

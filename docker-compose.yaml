@@ -1,7 +1,7 @@
 version: "3"
 
-networks:
-  frontend:
+# networks:
+#   frontend:
 
 services:
   app:
@@ -32,7 +32,7 @@ services:
       - APP_USERNAME=caddy
       # compute the password with docker run --rm -it gitkraken-remote_caddy caddy hash-password -plaintext 'aaa'
       # aaa : JDJhJDEwJEVKM0FhUTJvdkdIb2VZdkE0WVhMWS5WMFlkSW5TZTAuL0R4Z3NYdGx1NmgxdmVVVUhUMUhh
-      - APP_PASSWORD_HASH=JDJhJDEwJEVKM0FhUTJvdkdIb2VZdkE0WVhMWS5WMFlkSW5TZTAuL0R4Z3NYdGx1NmgxdmVVVUhUMUhh
+      - APP_PASSWORD_HASH=JDJhJDEwJEZrSllrdEF5a3F5TjNsU2hXYW1ub2V2TFBWTC5YbTJYeWpIRWI3YW5wMzVlTGRkeURLM2Qu
     volumes:
       - /home/dporto/devel:/data
     ports:
