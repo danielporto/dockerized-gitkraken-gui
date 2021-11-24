@@ -47,6 +47,12 @@ RUN apt-get update -y &&  apt install -y --no-install-recommends chromium chromi
 # adds keepassxc (in case I need to use my credentials)
 RUN apt-get update -y &&  apt install -y --no-install-recommends keepassxc && rm -rf /var/lib/apt/lists
 
+# install bitwarden too
+RUN wget https://github.com/bitwarden/desktop/releases/download/v1.29.1/Bitwarden-1.29.1-amd64.deb -P /tmp && \
+    dpkg -i /tmp/Bitwarden-1.29.1-amd64.deb && \
+    rm -rf /tmp/Bitwarden-1.29.1-amd64.deb
+
+
 # install vscode (for smooth remote container development)
 RUN wget -qO- https://packages.microsoft.com/keys/microsoft.asc | gpg --dearmor > packages.microsoft.gpg \
     && install -o root -g root -m 644 packages.microsoft.gpg /etc/apt/trusted.gpg.d/ \
