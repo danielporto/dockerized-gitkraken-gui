@@ -115,8 +115,8 @@ RUN curl https://raw.githubusercontent.com/danielporto/zsh-dotfiles/master/zimrc
     
 
 RUN ls -la /data
-# install GOLANG 1.14.13 or 1.16 
-ENV GO_INSTALL_VERSION=1.14.13 
+# install GOLANG 1.14.13 or 1.16.10 
+ENV GO_INSTALL_VERSION=1.16.10 
 ENV PATH="/opt/asdf/bin:/opt/asdf/shims:$PATH"
 RUN asdf plugin-add golang https://github.com/kennyp/asdf-golang.git && \
     asdf install golang $GO_INSTALL_VERSION && \
