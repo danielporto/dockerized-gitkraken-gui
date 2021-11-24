@@ -1,6 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
 <openbox_menu xmlns="http://openbox.org/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://openbox.org/ file:///usr/share/openbox/menu.xsd">
     <menu id="root-menu" label="Openbox 3">
+        <item label="Firefox">
+            <action name="Execute">
+                <execute>/usr/bin/firefox</execute>
+            </action>
+        </item>
+        <item label="Chromium">
+            <action name="Execute">
+                <execute>/usr/bin/chromium</execute>
+            </action>
+        </item>
+
+        <item label="Terminal">
+            <action name="Execute">
+                <execute>/usr/bin/x-terminal-emulator</execute>
+            </action>
+        </item>
+        <item label="KeepassXC">
+            <action name="Execute">
+                <execute>/usr/bin/keepassxc</execute>
+            </action>
+        </item>
+        <item label="Bitwarden">
+            <action name="Execute">
+                <execute>/usr/bin/bitwarden</execute>
+            </action>
+        </item>
         <item label="GitKraken">
             <action name="Execute">
                 <execute>/usr/bin/gitkraken</execute>
@@ -11,11 +37,6 @@
                 <execute>/usr/bin/code</execute>
             </action>
         </item>
-        <item label="Terminal">
-            <action name="Execute">
-                <execute>/usr/bin/x-terminal-emulator</execute>
-            </action>
-        </item>
         <item label="Goland">
             <action name="Execute">
                 <execute>/opt/GoLand/bin/goland.sh</execute>
@@ -24,16 +45,6 @@
         <item label="Intellij idea">
             <action name="Execute">
                 <execute>/opt/ideaIU/bin/idea.sh</execute>
-            </action>
-        </item>
-        <item label="KeepassXC">
-            <action name="Execute">
-                <execute>/usr/bin/keepassxc</execute>
-            </action>
-        </item>
-        <item label="Firefox">
-            <action name="Execute">
-                <execute>/usr/bin/firefox</execute>
             </action>
         </item>
         <item label="Htop">
