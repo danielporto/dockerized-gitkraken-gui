@@ -41,6 +41,9 @@ RUN apt-get update -y && \
 # adds firefox (sometimes required to authenticate with gitkraken tokens)
 RUN apt-get update -y &&  apt install -y --no-install-recommends firefox-esr && rm -rf /var/lib/apt/lists
 
+# adds chromium 
+RUN apt-get update -y &&  apt install -y --no-install-recommends chromium chromium-sandbox && rm -rf /var/lib/apt/lists
+
 # adds keepassxc (in case I need to use my credentials)
 RUN apt-get update -y &&  apt install -y --no-install-recommends keepassxc && rm -rf /var/lib/apt/lists
 
