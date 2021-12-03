@@ -62,6 +62,10 @@ RUN wget -qO- https://packages.microsoft.com/keys/microsoft.asc | gpg --dearmor 
     && apt install code \
     && rm -rf /var/lib/apt/lists
 
+# adds meld - gui diff tool 
+RUN apt-get update -y &&  apt install -y --no-install-recommends meld && rm -rf /var/lib/apt/lists
+
+
 # install goland (Jetbrains Golang IDE)
 ENV GOLAND_VERSION=2021.1.3
 RUN wget https://download-cdn.jetbrains.com/go/goland-${GOLAND_VERSION}.tar.gz \

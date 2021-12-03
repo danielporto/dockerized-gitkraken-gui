@@ -11,6 +11,8 @@ services:
       dockerfile: Dockerfile.app
     volumes:
       - /home/dporto/devel:/data
+      - /home/dporto/nas:/datanas
+      - /mnt/nas:/mnt/nas
       - /var/run/docker.sock:/var/run/docker.sock
 
   # samba:
@@ -30,13 +32,15 @@ services:
       context: .
       dockerfile: Dockerfile.caddy
     environment:
-      - APP_USERNAME=caddy
+      - APP_USERNAME=dporto
+      - APP_PASSWORD_HASH=JDJhJDEwJGZadnZ1eUdjakhtR0V0WlNuSmFhWHVSRUZEblpuLi9QQXl6MjMwRFpQL05HSWZKS3MwNjZl
       # compute the password with docker run --rm -it gitkraken-remote_caddy caddy hash-password -plaintext 'aaa'
       # aaa : JDJhJDEwJEVKM0FhUTJvdkdIb2VZdkE0WVhMWS5WMFlkSW5TZTAuL0R4Z3NYdGx1NmgxdmVVVUhUMUhh
-      - APP_PASSWORD_HASH=JDJhJDEwJEZrSllrdEF5a3F5TjNsU2hXYW1ub2V2TFBWTC5YbTJYeWpIRWI3YW5wMzVlTGRkeURLM2Qu
+      # - APP_PASSWORD_HASH=JDJhJDEwJEZrSllrdEF5a3F5TjNsU2hXYW1ub2V2TFBWTC5YbTJYeWpIRWI3YW5wMzVlTGRkeURLM2Qu
+ 
     volumes:
       - /home/dporto/devel:/data
     ports:
-      - 8080:8080
+      - 8181:8080
 
 
