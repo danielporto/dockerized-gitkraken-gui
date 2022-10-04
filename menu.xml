@@ -11,17 +11,17 @@
                 <execute>/usr/bin/firefox</execute>
             </action>
         </item>
-        <item label="Chromium">
+        <!-- <item label="Chromium">
             <action name="Execute">
                 <execute>/usr/bin/chromium</execute>
             </action>
-        </item>
+        </item> -->
 
-        <item label="KeepassXC">
+        <!-- <item label="KeepassXC">
             <action name="Execute">
                 <execute>/usr/bin/keepassxc</execute>
             </action>
-        </item>
+        </item> -->
         <item label="Bitwarden">
             <action name="Execute">
                 <execute>/usr/bin/bitwarden</execute>

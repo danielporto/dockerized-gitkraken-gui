@@ -12,7 +12,7 @@ RUN apt-get update -y && \
     mkdir -p /usr/share/desktop-directories
 
 RUN apt-get update -y && \
-    apt-get install -y --no-install-recommends lxterminal zsh git nano vim curl wget openssh-client rsync ca-certificates xdg-utils htop tar xzip gzip bzip2 zip unzip && \
+    apt-get install -y --no-install-recommends lxterminal sudo zsh git nano vim curl wget openssh-client rsync ca-certificates xdg-utils htop tar xzip gzip bzip2 zip unzip && \
     rm -rf /var/lib/apt/lists
 
 # for docker in docker
@@ -42,15 +42,15 @@ RUN apt-get update -y && \
 RUN apt-get update -y &&  apt install -y --no-install-recommends firefox-esr && rm -rf /var/lib/apt/lists
 
 # adds chromium 
-RUN apt-get update -y &&  apt install -y --no-install-recommends chromium chromium-sandbox && rm -rf /var/lib/apt/lists
+# RUN apt-get update -y &&  apt install -y --no-install-recommends chromium chromium-sandbox && rm -rf /var/lib/apt/lists
 
 # adds keepassxc (in case I need to use my credentials)
-RUN apt-get update -y &&  apt install -y --no-install-recommends keepassxc && rm -rf /var/lib/apt/lists
+# RUN apt-get update -y &&  apt install -y --no-install-recommends keepassxc && rm -rf /var/lib/apt/lists
 
 # install bitwarden too
-RUN wget https://github.com/bitwarden/desktop/releases/download/v1.29.1/Bitwarden-1.29.1-amd64.deb -P /tmp && \
-    dpkg -i /tmp/Bitwarden-1.29.1-amd64.deb && \
-    rm -rf /tmp/Bitwarden-1.29.1-amd64.deb
+RUN wget https://github.com/bitwarden/clients/releases/download/desktop-v2022.9.1/Bitwarden-2022.9.1-amd64.deb -P /tmp && \
+    dpkg -i /tmp/Bitwarden-2022.9.1-amd64.deb && \
+    rm -rf /tmp/Bitwarden-2022.9.1-amd64.deb
 
 
 # install vscode (for smooth remote container development)
@@ -67,7 +67,7 @@ RUN apt-get update -y &&  apt install -y --no-install-recommends meld && rm -rf 
 
 
 # install goland (Jetbrains Golang IDE)
-ENV GOLAND_VERSION=2021.1.3
+ENV GOLAND_VERSION=2022.2.3
 RUN wget https://download-cdn.jetbrains.com/go/goland-${GOLAND_VERSION}.tar.gz \
     && tar xvf goland-${GOLAND_VERSION}.tar.gz -C /opt \
     && rm -f goland-${GOLAND_VERSION}.tar.gz \
@@ -75,7 +75,7 @@ RUN wget https://download-cdn.jetbrains.com/go/goland-${GOLAND_VERSION}.tar.gz \
     && chmod -R o+rw /opt/GoLand* \
     && echo "Goland installed"
 
-ENV IDEA_VERSION=2021.1.3
+ENV IDEA_VERSION=2022.2.2
 RUN wget https://download-cdn.jetbrains.com/idea/ideaIU-${IDEA_VERSION}.tar.gz \
     && tar xvf ideaIU-${IDEA_VERSION}.tar.gz -C /opt \
     # && ls /opt \
@@ -83,6 +83,14 @@ RUN wget https://download-cdn.jetbrains.com/idea/ideaIU-${IDEA_VERSION}.tar.gz \
     && mv /opt/idea-IU-211.7628.21 /opt/ideaIU \ 
     && chmod -R o+rw /opt/ideaIU \
     && echo "Intellij installed"
+
+
+# install IPMI  TOOL
+#RUN wget https://www.supermicro.com/SwDownload/SwSelect_Free.aspx?cat=IPMI
+# COPY IPMIView_2.19.0_build.210401_bundleJRE_Linux_x64.tar.gz /tmp \
+#     && tar /tmp/IPMIView_2.19.0_build.210401_bundleJRE_Linux_x64.tar.gz -C /opt \
+#     && rm -f /tmp/IPMIView_2.19.0_build.210401_bundleJRE_Linux_x64.tar.gz
+
 
 # configure vnc and supervisord
 COPY --from=easy-novnc-build /bin/easy-novnc /usr/local/bin/
@@ -100,11 +108,14 @@ RUN groupadd --gid $GID app && \
     chown -R app /data 
 VOLUME /data
 
+# adds user to sudo
+RUN echo "app ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers
 
 # install asdf
-RUN git clone https://github.com/asdf-vm/asdf.git /opt/asdf --branch v0.8.1 \
+RUN git clone https://github.com/asdf-vm/asdf.git /opt/asdf --branch v0.10.2 \
     && chmod -R o+rw /opt/asdf \
     && echo "ASDF installed"
+
 
 # customize user environment
 # allow user to run docker commands
