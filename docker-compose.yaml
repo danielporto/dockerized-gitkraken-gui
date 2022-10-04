@@ -21,27 +21,32 @@ services:
       - /var/run/docker.sock:/var/run/docker.sock
 
   # samba:
-  #   image: dperson/samba
-  #   environment:
-  #     - USERID=1097
-  #     - GROUPID=1145
-  #   ports:
-  #     - 139:139
-  #     - 445:445
-  #   # https://hub.docker.com/r/dperson/samba
-  #   command:  -u "dporto;kaioken;" -s "devel;/data;yes;no;no;dporto"
-  #   volumes:
-  #           - /home/dporto/devel:/data
+  #    image: dperson/samba
+  #    environment:
+  #      - USERID=1097
+  #      - GROUPID=1145
+  #    ports:
+  #      - 139:139
+  #      - 445:445
+  #    # https://hub.docker.com/r/dperson/samba
+  #   #  command:  -u "dporto;kaioken;" -s "devel;/data;yes;no;no;dporto" -s "thesis_experiments;/thesis_experiments;yes;no;no;dporto" -g "server min protocol = NT1" -S 
+  #    # the command below worked for IPMI mount (supermicro)
+  #    command:  -u "dporto;kaioken;" -s "devel;/data;yes;yes;yes;all" -s "thesis_experiments;/thesis_experiments;yes;no;no;dporto" -g "server min protocol = NT1" -S 
+  #    volumes:
+  #      - /home/dporto/devel:/data
+  #      - /home/dporto/thesis_experiments:/thesis_experiments
+
   caddy:
     build:
       context: .
       dockerfile: Dockerfile.caddy
     environment:
       - APP_USERNAME=dporto
-      - APP_PASSWORD_HASH=JDJhJDEwJGZadnZ1eUdjakhtR0V0WlNuSmFhWHVSRUZEblpuLi9QQXl6MjMwRFpQL05HSWZKS3MwNjZl
+      # - APP_PASSWORD_HASH=JDJhJDEwJGZadnZ1eUdjakhtR0V0WlNuSmFhWHVSRUZEblpuLi9QQXl6MjMwRFpQL05HSWZKS3MwNjZl
       # compute the password with docker run --rm -it gitkraken-remote_caddy caddy hash-password -plaintext 'aaa'
       # aaa : JDJhJDEwJEVKM0FhUTJvdkdIb2VZdkE0WVhMWS5WMFlkSW5TZTAuL0R4Z3NYdGx1NmgxdmVVVUhUMUhh
       # - APP_PASSWORD_HASH=JDJhJDEwJEZrSllrdEF5a3F5TjNsU2hXYW1ub2V2TFBWTC5YbTJYeWpIRWI3YW5wMzVlTGRkeURLM2Qu
+      - APP_PASSWORD_HASH=JDJhJDEwJFRSaVBCMlVXQU10dXV6Qi9qd2RlbnUvTlVUWjVTUWxhMTlsTE1FSVFzNjZtRGNZZEgva08u
  
     volumes:
       - /home/dporto/devel:/data
