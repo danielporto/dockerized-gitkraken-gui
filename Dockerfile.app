@@ -80,7 +80,7 @@ RUN wget https://download-cdn.jetbrains.com/idea/ideaIU-${IDEA_VERSION}.tar.gz \
     && tar xvf ideaIU-${IDEA_VERSION}.tar.gz -C /opt \
     # && ls /opt \
     && rm -f ideaIU-${IDEA_VERSION}.tar.gz \
-    && mv /opt/idea-IU-211.7628.21 /opt/ideaIU \ 
+    && mv /opt/idea-IU-222.4167.29 /opt/ideaIU \ 
     && chmod -R o+rw /opt/ideaIU \
     && echo "Intellij installed"
 
